@@ -1,4 +1,6 @@
-# refactoring
+# Refactoring
+
+---
 
 ## Comments on the Starting Program
 
