@@ -29,3 +29,19 @@ As I do the refactoring, Ill lean on the tests. I think of them as a bug detecto
 ---
 
 ## Decomposing the _statement_ function
+
+When refactoring a long function like this, I mentally try to identify points that separate different parts of the overall behavior. the first chunk that leaps to my eye is the switch statement in the middle.
+
+As I look at this chunk, I conclude that it's calculating the charge for one performance. That conclusion is a piece of insight about the code. But as Ward Cunningham puts it, this understanding is in my head--a notoriously volatile form of storage. I need to persist it by moving it from my head back into the code itself. That way, should I come back to it later, the code will tell me what it's doing--I don't have to figure it out again.
+
+The way to put that understanding into code is to turn that chunk of code into its own function, naming it after what it does--something like _amountFor(aPerformance)_. When I want to turn a chunk of code into a function like this, I have a procedure for doing it that minimizes my chances of getting it wrong. I wrote down this procedure and, to make it easy to reference, named it **Extract Function (106)**.
+
+First, I need to look in the fragment for any variables that will no longer be in scope once I've extracted the code into its own function. In this case, I have three: _perf_, _play_, and _thisAmount_. The first two are used by the extracted code, but not modified, so I can pass them in as parameters. Modified variables need more care. Here, there is only one, so I can return it. I can also bring its initialization inside the extraded code. All of which yields this:
+
+When I use a header like _"function someName..."_ in italics for some code, that means that the following code is within the scope of the function, file, or class named in the header. There is usually other code within that scope that I won't show, as I'm not discussing it at the moment.
+
+The original _statement_ code now calls this function to populate _thisAmount_:
+
+Once I've made this change, I immediately compile and test to see if I've broken anything. It's an important habit to test after every refactoring, however simple. Mistakes are easy to make--at least, I find them easy to make. Testing after each change means that whein I make a mistake, I only have a small change to consider in order to spot the error, which makes it far easier to find and fix. This is the essence of the refactoring process: small changes and testing after each change. If I try to do too much, making a mistake will force me tinto a tricky debugging episode that can take a lone time. Small changes, enabling a tight feedback loop are the key to avoiding that mess.
+
+> I use _compile_ here to mean doing whatever is needed to make the JavaScript executable. Since JavaScript is directly executable, that may mean nothing, but in other cases it may mean moving code to an output directory and/or using a processor such as Babel.
