@@ -45,3 +45,13 @@ The original _statement_ code now calls this function to populate _thisAmount_:
 Once I've made this change, I immediately compile and test to see if I've broken anything. It's an important habit to test after every refactoring, however simple. Mistakes are easy to make--at least, I find them easy to make. Testing after each change means that whein I make a mistake, I only have a small change to consider in order to spot the error, which makes it far easier to find and fix. This is the essence of the refactoring process: small changes and testing after each change. If I try to do too much, making a mistake will force me tinto a tricky debugging episode that can take a lone time. Small changes, enabling a tight feedback loop are the key to avoiding that mess.
 
 > I use _compile_ here to mean doing whatever is needed to make the JavaScript executable. Since JavaScript is directly executable, that may mean nothing, but in other cases it may mean moving code to an output directory and/or using a processor such as Babel.
+
+This being JavaScript, I can extract _amountfor_ into a nested function of _statement_. This is helpful as it means I don't have to pass data that's inside the scope of the containing function to the newly extracted function. That doesn't make a difference in this case, but it's one less issue to deal with.
+
+In this case the tests passed, so my next step is to commit the change to my local version control system. I use a version control system, such as git or mercurial, that allows me to make private commits. I commit after each successfull refactoring, so I can easily get back to a working state should I mess up later. I then squash changes into more significant commits before I push the changes to a shared repository.
+
+**Extract Function (106)** is a common refactoring to automate. If I was programming in Java, I would have instinctively reached for the key sequience for my IDE to perform this refactoring. As I write this, there is no such robust support for this refactoring in JavaScript tools, so I have to do this manually. It's not hard, although I have to be careful with those locally scoped variables.
+
+Once I've used **Extract Function (106)**, I take a look at what I've extracted to see if there are any quick and easy things I can do to clarify the extracted function. The first thing I do is rename some of the variables to make them clearer, such as changing _thisAmount_ to _result_.
+
+It's my coding standard to always call the return value from a function "result". That way I always know its role. Again, I compile, test, and commit. Then I move onto the first argument.
