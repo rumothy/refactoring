@@ -67,3 +67,21 @@ As I consider the parameters to _amountFor_, I look to see where they come from.
 I begin by extracting the right-hand side of the assignment into a function.
 
 I compile-test-commit, and then use _Inline Variable (123)._
+
+I compile-test-commit. With that inlined, I can then apply _Change Function Declaration (124)_ to _amountFor_ to remove the _play_ parameter. I do this in two steps. First, I use the new function inside _amountFor_.
+
+And compile-test-commit again.
+
+This refactoring alarms some programmers. Previously, the code to look up the play was executed once in each loop iteration; now, it's executed thrice. I'll talk about the interplay of refactoring and performance later, but for the moment I'll just observe that this change is unlikely to significantly affect performance, and even if it were, it is much easier to improve the performance of a well-factored code base.
+
+The great benefit of removing local variables is that it makes it much easier to do extractions, since there is less local scope to deal with. Indeed, usually I'll take out local variables before I do any extractions.
+
+Now that I'm done with the arguments to _amountFor_, I look back at where it's called. It's being used to set a temporary variable that's not updated again, so I apply _Inline Variable (123)._
+
+## Extracting Volume Credits
+
+Here's the current state of the _statement_ function body:
+
+Now I get the benefit from removing the _play_ variable as it makes it easier to extract the volume credits calculation by removing one of the locally scoped variables.
+
+I still have to deal with the other two. Again, _perf_ is easy to pass in, but _volumeCredits_ is a bit more tricky as it is an accumulator updated in each pass of the loop. So my best bet is to initialize a shadow of it inside the extracted function and return it.
