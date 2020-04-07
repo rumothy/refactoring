@@ -1,30 +1,5 @@
-// const plays = {
-//   hamlet: { name: "Hamlet", type: "tragedy" },
-//   "as-like": { name: "As You Like It", type: "comedy" },
-//   othello: { name: "Othello", type: "tragedy" }
-// };
-
-// const invoices = [
-//   {
-//     customer: "BigCo",
-//     performances: [
-//       {
-//         playID: "hamlet",
-//         audience: 55
-//       },
-//       {
-//         playID: "as-like",
-//         audience: 35
-//       },
-//       {
-//         playID: "othello",
-//         audience: 40
-//       }
-//     ]
-//   }
-// ];
-
-import plays from "./plays.json";
+const plays = require("./plays.json");
+const invoices = require("./invoices.json");
 
 function statement(invoice, plays) {
   let totalAmount = 0;
@@ -33,7 +8,7 @@ function statement(invoice, plays) {
   const format = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-    minimumFractionDigits: 2
+    minimumFractionDigits: 2,
   }).format;
 
   for (let perf of invoice.performances) {
