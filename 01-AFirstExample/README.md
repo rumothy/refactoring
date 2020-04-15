@@ -2,7 +2,7 @@
 
 ## Comments on the Starting Program
 
-What are your thoughts on the design of this program? The first thing I'd say is that its's tolerable as it is--a program so short doesn't require any dep structure to be comprehensible. But remember my earlier point that I have to keep examples small. Imagin this program on a larger scale--perhaps hundreds of lines long. At that size, a single inline function is hard to understand.
+What are your thoughts on the design of this program? The first thing I'd say is that its's tolerable as it is--a program so short doesn't require any dep structure to be comprehensible. But remember my earlier point that I have to keep examples small. Imagine this program on a larger scale--perhaps hundreds of lines long. At that size, a single inline function is hard to understand.
 
 Given that the program works, isn't any statement about its structure merely an aesthetic judgement, a dislike of "ugly" code? After all, the compiler doesn't care whether the code is ugly or clean. But when I change the system, there is a human involved, and humans do care. A poorly designed system is hard to change--because it is difficult to figure out what to change and how these changes will interact with the existing code to get the behavior I want. And if it is hard to figure out what to change, there is a good chance that I will make mistakes and introduce bugs.
 
